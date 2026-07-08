@@ -3,7 +3,7 @@ const textos = document.querySelectorAll(".aba-conteudo");
 
 for (let i = 0; i < botoes.length; i++) {
     botoes[i].onclick = function () {
-        for(let j = 0; j < botoes.length; j++) {
+        for (let j = 0; j < botoes.length; j++) {
             botoes[j].classList.remove("ativo");
             textos[j].classList.remove("ativo");
         }
@@ -13,7 +13,7 @@ for (let i = 0; i < botoes.length; i++) {
 }
 
 const contadores = document.querySelectorAll(".contador");
-const tempoObjetivo1 = new Date("2026-07-30T00:00:00");
+const tempoObjetivo1 = new Date("2026-09-30T00:00:00");
 const tempoObjetivo2 = new Date("2026-08-31T00:00:00");
 const tempoObjetivo3 = new Date("2026-07-31T00:00:00");
 const tempoObjetivo4 = new Date("2026-12-11T00:00:00");
@@ -35,9 +35,9 @@ function calculaTempo(tempoObjetivo) {
     horas %= 24;
 
     if (tempoFinal > 0) {
-        return [dias,horas,minutos,segundos];
+        return [dias, horas, minutos, segundos];
     } else {
-        return [0,0,0,0];
+        return [0, 0, 0, 0];
     }
 }
 
@@ -61,26 +61,28 @@ funtion calculaSituacao(tempoObjetivo) {
 }
 
 function atualizaSituacao() {
-    for( let i=0; i < situacao.length; i++) {
+    for (let i = 0; i < situacao.length; i++) {
         situacoes[i].textContent = calculaSituacao(tempos[i]);
     }
 }
 
 function atualizarCronometro() {
-    document.getElementById("dias0").textContent = calculaTempo(tempos[0])[0];
-    document.getElementById("horas0").textContent = calculaTempo(tempos[0])[1];
-    document.getElementById("min0").textContent = calculaTempo(tempos[0])[2];
-    document.getElementById("seg0").textContent = calculaTempo(tempos[0])[3];
 
-    for (let i=0; i < contadores.length; i++) {
-        //contadores[i].textContent = calculaTempo(tempos[i]);
+    for (let i = 0; i < contadores.length; i++) {
+        let tempo = calculaTempo(tempos[i]);
+
+        document.getElementById("dias"+i).textContent = tempo[0];
+        document.getElementById("horas"+i).textContent = tempo[1];
+        document.getElementById("min"+i).textContent = tempo[2];
+        document.getElementById("seg"+i).textContent = tempo[3];
+
     }
+    atualizaSituacao();
 }
 
 function comecaCronometro() {
     atualizarCronometro();
-    setInterval(atualizarCronometro,1000);
+    setInterval(atualizarCronometro, 1000);
 }
 
 comecaCronometro();
-atualizaSituacao();
